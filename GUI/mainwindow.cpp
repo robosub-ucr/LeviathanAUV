@@ -61,10 +61,9 @@ void MainWindow::paintEvent(QPaintEvent *event){
     painter.setPen(pen);
 
     //draws a rectagle from the top left corner (x,y, width, height)
-    c.setSquareWidth(300);
-    painter. drawRect(QRect(-c.getSquareWidth()/2, -c.getSquareWidth()/2, c.getSquareWidth(), c.getSquareWidth()));
+    c.setSquareWidth(200);
+    painter.drawRect(QRect(-c.getSquareWidth()/2, -c.getSquareWidth()/2, c.getSquareWidth(), c.getSquareWidth()));
 
-    pen.setColor(Qt::black);
     painter.setBrush(Qt::black);
 
     //draws an ellepse from top left corner (x,y, center width, center height)
@@ -98,6 +97,41 @@ void MainWindow::paintEvent(QPaintEvent *event){
     painter.drawEllipse(-10 , -c.getNeedleHeight() + -10 , 20 , 20);
     painter.rotate(-c.getTargetAngle());
 
+    //reset translate
+    painter.translate(-c.getCenterX(),-c.getCenterY());
+
+    //draw table
+    painter.translate(800,250);
+    pen.setColor(Qt::black);
+    painter.setPen(pen);
+    painter.setBrush(Qt::black);
+
+    painter.drawLine(0, 0, 600, 0);
+    painter.drawLine(0, 0, 0, -200);
+
+    pen.setColor(Qt::red);
+    painter.setPen(pen);
+    painter.setBrush(Qt::blue);
+
+    int points = 4;
+    int cake[4][2];
+    int xStep = 100;
+    int yStep = 10;
+
+    for (int i = 1; i <= points; i++){
+        painter.drawEllipse(xStep * i, yStep * -i, 10, 10);
+        cake[i - 1][0] = xStep * i + 5;
+        cake[i - 1][1] = yStep * -i + 5;
+        yStep = yStep * 1.7;
+    }
+
+    pen.setColor(Qt::blue);
+    painter.setPen(pen);
+
+    for (int j = 0; j < points - 1; j++){
+        painter.drawLine(cake[j][0], cake[j][1], cake[j + 1][0], cake[j + 1][1]);
+    }
+
 }
 
 void MainWindow::showTime(){
@@ -108,7 +142,7 @@ void MainWindow::showTime(){
     if ((time.second() % 2) == 0){
         time_text[3] = ' ';
         time_text[8] = ' ';
-        QWidget::update();
+
     }
     ui->Clock->setText(time_text);
 
