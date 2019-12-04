@@ -66,7 +66,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
     painter.setBrush(Qt::black);
 
-    //draws an ellepse from top left corner (x,y, center width, center height)
+    //draws an ellipse from top left corner (x,y, center width, center height)
     painter.drawEllipse(-c.getSquareWidth()/2, -c.getSquareWidth()/2, c.getSquareWidth(), c.getSquareWidth());
 
 
@@ -132,6 +132,24 @@ void MainWindow::paintEvent(QPaintEvent *event){
         painter.drawLine(cake[j][0], cake[j][1], cake[j + 1][0], cake[j + 1][1]);
     }
 
+    painter.translate(-800,-250);
+
+    painter.translate(1120,450);
+    painter.rotate(-50);
+    pen.setColor(Qt::black);
+    painter.setPen(pen);
+    painter.drawLine(0, 0, -175, 0);
+    painter.drawLine(0, 0, 175, 0);
+    pen.setColor(Qt::blue);
+    painter.setPen(pen);
+    painter.setBrush(Qt::white);
+    painter.drawEllipse(-90, -43, 180, 85);
+    painter.setBrush(Qt::red);
+    painter.drawEllipse(-55, -13, 25, 25);
+    pen.setColor(Qt::black);
+    painter.setPen(pen);
+    painter.rotate(-50);
+    painter.translate(-1120,-450);
 }
 
 void MainWindow::showTime(){
