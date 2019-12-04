@@ -42,7 +42,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1920, 1102);
+        MainWindow->resize(1920, 1107);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         centralwidget->setMinimumSize(QSize(1920, 1080));
@@ -74,7 +74,7 @@ public:
         Clock->setGeometry(QRect(520, 540, 141, 31));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(770, 20, 71, 21));
+        label->setGeometry(QRect(510, 20, 71, 21));
         pushButton_4 = new QPushButton(centralwidget);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
         pushButton_4->setGeometry(QRect(20, 20, 211, 91));
@@ -83,7 +83,7 @@ public:
         pushButton->setGeometry(QRect(260, 20, 211, 91));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(1410, 230, 71, 31));
+        label_2->setGeometry(QRect(500, 260, 71, 31));
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -104,10 +104,10 @@ public:
         pushButton_7->setText(QApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_8->setText(QApplication::translate("MainWindow", "PushButton", nullptr));
         Clock->setText(QApplication::translate("MainWindow", "Time", nullptr));
-        label->setText(QApplication::translate("MainWindow", "DEPTH", nullptr));
+        label->setText(QApplication::translate("MainWindow", "Depth", nullptr));
         pushButton_4->setText(QApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton->setText(QApplication::translate("MainWindow", "Button", nullptr));
-        label_2->setText(QApplication::translate("MainWindow", "TIME", nullptr));
+        label_2->setText(QString());
     } // retranslateUi
 
 };
