@@ -22,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     compass.h \
+    depth.h \
     mainwindow.h
 
 FORMS += \
