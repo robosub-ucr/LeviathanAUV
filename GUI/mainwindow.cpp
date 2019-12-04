@@ -70,7 +70,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
     painter.setBrush(Qt::black);
 
-    //draws an ellepse from top left corner (x,y, center width, center height)
+    //draws an ellipse from top left corner (x,y, center width, center height)
     painter.drawEllipse(-c.getSquareWidth()/2, -c.getSquareWidth()/2, c.getSquareWidth(), c.getSquareWidth());
 
 
@@ -110,7 +110,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
     painter.translate(800 * RESIZE_CONSTANT, 250 * RESIZE_CONSTANT);
     pen.setColor(Qt::black);
     painter.setPen(pen);
-    painter.setBrush(Qt::black);
+    painter.setBrush(Qt::white);
 
     painter.drawLine(0, 0, 600 * RESIZE_CONSTANT, 0);
     painter.drawLine(0, 0, 0, -200 * RESIZE_CONSTANT);
@@ -119,13 +119,16 @@ void MainWindow::paintEvent(QPaintEvent *event){
     painter.setPen(pen);
     painter.setBrush(Qt::blue);
 
+
     int points = 4;
     int cake[4][2];
     int xStep = 100 * RESIZE_CONSTANT;
     int yStep = 10 * RESIZE_CONSTANT;
 
     for (int i = 1; i <= points; i++){
+
         painter.drawEllipse(xStep * i, yStep * -i, 10 * RESIZE_CONSTANT, 10 * RESIZE_CONSTANT);
+
         cake[i - 1][0] = xStep * i + 5;
         cake[i - 1][1] = yStep * -i + 5;
         yStep = yStep * 1.7;
@@ -138,12 +141,14 @@ void MainWindow::paintEvent(QPaintEvent *event){
         painter.drawLine(cake[j][0], cake[j][1], cake[j + 1][0], cake[j + 1][1]);
     }
 
+
     painter.translate(-800 * RESIZE_CONSTANT,-250 * RESIZE_CONSTANT);
 
 
 
     //depth gauge (WIP)
     painter.translate(600 * RESIZE_CONSTANT, 150 * RESIZE_CONSTANT);
+
     painter.rotate(-50);
     pen.setColor(Qt::black);
     painter.setPen(pen);
@@ -159,7 +164,6 @@ void MainWindow::paintEvent(QPaintEvent *event){
     painter.setPen(pen);
     painter.rotate(-50);
     painter.translate(-650,-150);
-
 }
 
 
