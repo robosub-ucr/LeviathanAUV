@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "compass.h"
+#include "camera.h"
 
 #include <QPushButton>
 #include <QLabel>
@@ -105,7 +106,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
     pen.setColor(Qt::black);
     painter.setPen(pen);
     painter.setBrush(Qt::black);
-
+/*
     painter.drawLine(0, 0, 600, 0);
     painter.drawLine(0, 0, 0, -200);
 
@@ -131,6 +132,18 @@ void MainWindow::paintEvent(QPaintEvent *event){
     for (int j = 0; j < points - 1; j++){
         painter.drawLine(cake[j][0], cake[j][1], cake[j + 1][0], cake[j + 1][1]);
     }
+    */
+    painter.translate(0,300);
+    painter.drawLine(0,0,400,0);
+    painter.rotate(270);
+    painter.drawLine(0,0,400,0);
+    painter.translate(0,400);
+
+    painter.drawLine(0,0,400,0);
+    painter.rotate(90);
+    painter.translate(-400,-400);
+    painter.drawLine(0,0,400,0);
+
 
 }
 
