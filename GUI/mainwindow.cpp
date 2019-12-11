@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "compass.h"
+#include "Depth.h"
 
 #include <QPushButton>
 #include <QLabel>
@@ -135,8 +136,12 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
     painter.translate(-800,-250);
 
-    painter.translate(650,150);
-    painter.rotate(-50);
+    Depth d(600,150);
+    d.setAngle(-50);
+    d.setWidth(60);
+    d.setLength(120);
+    painter.translate(d.getCenterX(), d.getCenterY());
+    painter.rotate(d.getAngle());
     pen.setColor(Qt::black);
     painter.setPen(pen);
     painter.drawLine(0, 0, -115, 0);
@@ -144,13 +149,13 @@ void MainWindow::paintEvent(QPaintEvent *event){
     pen.setColor(Qt::blue);
     painter.setPen(pen);
     painter.setBrush(Qt::white);
-    painter.drawEllipse(-60, -30, 120, 60);
+    painter.drawEllipse(-60, -30, d.getLength(), d.getWidth());
     painter.setBrush(Qt::red);
-    painter.drawEllipse(-30, -7, 15, 15);
+    painter.drawEllipse(-30, -7, d.getSWidth(), d.getSWidth());
     pen.setColor(Qt::black);
     painter.setPen(pen);
-    painter.rotate(-50);
-    painter.translate(-650,-150);
+    painter.rotate(d.getAngle());
+    painter.translate(-d.getCenterX(),-d.getCenterY());
 }
 
 void MainWindow::showTime(){

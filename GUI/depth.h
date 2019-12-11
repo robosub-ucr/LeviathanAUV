@@ -3,12 +3,29 @@
 
 #include <mainwindow.h>
 
-class depth : MainWindow {
-    public:
+class Depth : MainWindow {
 
+public:
+    Depth(int centerX, int centerY);
 
-    private:
-        double height;
+    int getCenterX();
+    int getCenterY();
+    int getWidth();
+    int getLength();
+    int getSWidth();
+    int getAngle();
+
+    void setWidth(int sw);
+    void setLength(int nw);
+    void setAngle(int a);
+
+private:
+    int centerX;
+    int centerY;
+    int width;
+    int angle;
+    int length;
+    int swidth;
 
 };
 

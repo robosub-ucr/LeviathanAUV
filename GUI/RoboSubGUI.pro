@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     compass.cpp \
+    depth.cpp \
     main.cpp \
     mainwindow.cpp
 
