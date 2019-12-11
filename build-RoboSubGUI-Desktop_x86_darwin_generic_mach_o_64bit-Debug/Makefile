@@ -53,9 +53,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../GUI/compass.cpp \
+		../GUI/depth.cpp \
 		../GUI/main.cpp \
 		../GUI/mainwindow.cpp moc_mainwindow.cpp
 OBJECTS       = compass.o \
+		depth.o \
 		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
@@ -224,6 +226,7 @@ DIST          = ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/spec_pre.prf
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/spec_post.prf \
+		../GUI/.qmake.stash \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/toolchain.prf \
@@ -254,6 +257,7 @@ DIST          = ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/spec_pre.prf
 		../GUI/RoboSubGUI.pro ../GUI/compass.h \
 		../GUI/depth.h \
 		../GUI/mainwindow.h ../GUI/compass.cpp \
+		../GUI/depth.cpp \
 		../GUI/main.cpp \
 		../GUI/mainwindow.cpp
 QMAKE_TARGET  = RoboSubGUI
@@ -443,6 +447,7 @@ Makefile: ../GUI/RoboSubGUI.pro ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/macx-
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/toolchain.prf \
@@ -640,6 +645,7 @@ Makefile: ../GUI/RoboSubGUI.pro ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/macx-
 ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/mac/sdk.prf:
 ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/toolchain.prf:
@@ -702,7 +708,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/Qt1/5.12.5/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../GUI/compass.h ../GUI/depth.h ../GUI/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../GUI/compass.cpp ../GUI/main.cpp ../GUI/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../GUI/compass.cpp ../GUI/depth.cpp ../GUI/main.cpp ../GUI/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../GUI/mainwindow.ui $(DISTDIR)/
 
 
@@ -713,6 +719,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r RoboSubGUI.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -792,6 +799,27 @@ compass.o: ../GUI/compass.cpp ../GUI/mainwindow.h \
 		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtCore.framework/Headers/QDateTime \
 		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtCore.framework/Headers/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o compass.o ../GUI/compass.cpp
+
+depth.o: ../GUI/depth.cpp ../GUI/mainwindow.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtGui.framework/Headers/QPainter \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		../GUI/depth.h \
+		ui_mainwindow.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/QFrame \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/QTextBrowser \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtCore.framework/Headers/QTimer \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtCore.framework/Headers/qtimer.h \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtCore.framework/Headers/qdatetime.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o depth.o ../GUI/depth.cpp
 
 main.o: ../GUI/main.cpp ../GUI/mainwindow.h \
 		../../../../Qt/Qt1/5.12.5/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \

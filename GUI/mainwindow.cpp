@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "compass.h"
+#include "Depth.h"
 
 #include <QPushButton>
 #include <QLabel>
@@ -8,9 +9,6 @@
 #include <QTextBrowser>
 #include <QTimer>
 #include <QDateTime>
-
-//temporary resize fix
-const double RESIZE_CONSTANT(0.75);
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_5->setText("STM32");
     ui->pushButton_6->setText("Camera 1");
     ui->pushButton_7->setText("Camera 2");
-    ui->pushButton_8->setText("SM's");
+    ui->pushButton_8->setText("State Machines");
     QTimer *timer = new QTimer(this);
     connect(timer , SIGNAL(timeout()) , this, SLOT(showTime()));
     timer->start();
@@ -33,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 void MainWindow::paintEvent(QPaintEvent *event){
-
     //draws compass
     //currently trying to figure out how to move this to a seperate class
     //to make it much more easily customizable
@@ -45,7 +42,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
     QPainter painter(this);
 
     //creates the compass
-    Compass c(600 * RESIZE_CONSTANT,400 * RESIZE_CONSTANT);
+    Compass c(600,400);
 
     //sets fill to be blue
     painter.setBrush(Qt::blue);
@@ -65,7 +62,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
     painter.setPen(pen);
 
     //draws a rectagle from the top left corner (x,y, width, height)
-    c.setSquareWidth(200 * RESIZE_CONSTANT);
+    c.setSquareWidth(200);
     painter.drawRect(QRect(-c.getSquareWidth()/2, -c.getSquareWidth()/2, c.getSquareWidth(), c.getSquareWidth()));
 
     painter.setBrush(Qt::black);
@@ -75,8 +72,8 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
 
     //defines a the points of a polygon
-    c.setNeedleWidth(10 * RESIZE_CONSTANT);
-    c.setNeedleHeight(100 * RESIZE_CONSTANT);
+    c.setNeedleWidth(10);
+    c.setNeedleHeight(100);
     QPolygon pointer;
     pointer << QPoint(0, -c.getNeedleHeight()) << QPoint(-c.getNeedleWidth(), 0) << QPoint(c.getNeedleWidth(), 0);
 
@@ -98,22 +95,20 @@ void MainWindow::paintEvent(QPaintEvent *event){
     pen.setBrush(Qt::red);
     painter.setBrush(Qt::red);
     painter.rotate(c.getTargetAngle());
-    painter.drawEllipse(-10 * RESIZE_CONSTANT, -c.getNeedleHeight() + -10 , 20 * RESIZE_CONSTANT, 20 * RESIZE_CONSTANT);
+    painter.drawEllipse(-10 , -c.getNeedleHeight() + -10 , 20 , 20);
     painter.rotate(-c.getTargetAngle());
 
     //reset translate
     painter.translate(-c.getCenterX(),-c.getCenterY());
 
-
-
-    //draw depth table (WIP)
-    painter.translate(800 * RESIZE_CONSTANT, 250 * RESIZE_CONSTANT);
+    //draw table
+    painter.translate(800,250);
     pen.setColor(Qt::black);
     painter.setPen(pen);
     painter.setBrush(Qt::white);
 
-    painter.drawLine(0, 0, 600 * RESIZE_CONSTANT, 0);
-    painter.drawLine(0, 0, 0, -200 * RESIZE_CONSTANT);
+    painter.drawLine(0, 0, 600, 0);
+    painter.drawLine(0, 0, 0, -200);
 
     pen.setColor(Qt::red);
     painter.setPen(pen);
@@ -122,13 +117,11 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
     int points = 4;
     int cake[4][2];
-    int xStep = 100 * RESIZE_CONSTANT;
-    int yStep = 10 * RESIZE_CONSTANT;
+    int xStep = 100;
+    int yStep = 10;
 
     for (int i = 1; i <= points; i++){
-
-        painter.drawEllipse(xStep * i, yStep * -i, 10 * RESIZE_CONSTANT, 10 * RESIZE_CONSTANT);
-
+        painter.drawEllipse(xStep * i, -yStep * i, 10, 10);
         cake[i - 1][0] = xStep * i + 5;
         cake[i - 1][1] = yStep * -i + 5;
         yStep = yStep * 1.7;
@@ -141,15 +134,14 @@ void MainWindow::paintEvent(QPaintEvent *event){
         painter.drawLine(cake[j][0], cake[j][1], cake[j + 1][0], cake[j + 1][1]);
     }
 
+    painter.translate(-800,-250);
 
-    painter.translate(-800 * RESIZE_CONSTANT,-250 * RESIZE_CONSTANT);
-
-
-
-    //depth gauge (WIP)
-    painter.translate(600 * RESIZE_CONSTANT, 150 * RESIZE_CONSTANT);
-
-    painter.rotate(-50);
+    Depth d(600,150);
+    d.setAngle(-50);
+    d.setWidth(60);
+    d.setLength(120);
+    painter.translate(d.getCenterX(), d.getCenterY());
+    painter.rotate(d.getAngle());
     pen.setColor(Qt::black);
     painter.setPen(pen);
     painter.drawLine(0, 0, -115, 0);
@@ -157,16 +149,14 @@ void MainWindow::paintEvent(QPaintEvent *event){
     pen.setColor(Qt::blue);
     painter.setPen(pen);
     painter.setBrush(Qt::white);
-    painter.drawEllipse(-60, -30, 120, 60);
+    painter.drawEllipse(-60, -30, d.getLength(), d.getWidth());
     painter.setBrush(Qt::red);
-    painter.drawEllipse(-30, -7, 15, 15);
+    painter.drawEllipse(-30, -7, d.getSWidth(), d.getSWidth());
     pen.setColor(Qt::black);
     painter.setPen(pen);
-    painter.rotate(-50);
-    painter.translate(-650,-150);
+    painter.rotate(d.getAngle());
+    painter.translate(-d.getCenterX(),-d.getCenterY());
 }
-
-
 
 void MainWindow::showTime(){
 
@@ -186,4 +176,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
