@@ -1,0 +1,8 @@
+prefix=/home/jack/catkin_ws/install
+
+Name: uuv_descriptions_leviathan
+Description: Description of uuv_descriptions_leviathan
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/jack/catkin_ws/install/lib 
+Requires: 

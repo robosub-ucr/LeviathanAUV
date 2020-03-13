@@ -1,0 +1,8 @@
+prefix=/home/jack/RoboSub/catkin_ws/devel
+
+Name: uuv_descriptions_example
+Description: Description of uuv_descriptions_example
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/jack/RoboSub/catkin_ws/devel/lib 
+Requires: 

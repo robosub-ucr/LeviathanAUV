@@ -1,0 +1,12 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~depthenable_param" : \b [bool] Depth Pid enable parameter min: False, default: False, max: True
+- \b "~depthpoint_param" : \b [double] Depth Setpoint parameter min: 0.0, default: 14.0, max: 28.0
+- \b "~yawenable_param" : \b [bool] Yaw Pid enable parameter min: False, default: False, max: True
+- \b "~yawpoint_param" : \b [double] Yaw Setpoint parameter min: -3.14, default: 0.0, max: 3.14
+- \b "~yawpwm_param" : \b [double] Yaw Pwm parameter min: -150.0, default: 0.0, max: 150.0
+- \b "~depthpwm_param" : \b [double] Depth Pwm parameter min: -300.0, default: 0.0, max: 300.0
+- \b "~pan_param" : \b [double] Pan tilt servo min: 0.0, default: 0.0, max: 100.0
+

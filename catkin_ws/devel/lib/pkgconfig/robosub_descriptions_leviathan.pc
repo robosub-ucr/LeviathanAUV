@@ -1,0 +1,8 @@
+prefix=/home/jack/RoboSub/catkin_ws/devel
+
+Name: robosub_descriptions_leviathan
+Description: Description of robosub_descriptions_leviathan
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/jack/RoboSub/catkin_ws/devel/lib 
+Requires: 

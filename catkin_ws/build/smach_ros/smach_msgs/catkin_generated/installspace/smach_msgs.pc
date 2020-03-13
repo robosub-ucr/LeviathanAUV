@@ -1,0 +1,8 @@
+prefix=/home/jack/catkin_ws/install
+
+Name: smach_msgs
+Description: Description of smach_msgs
+Version: 2.0.1
+Cflags: -I/home/jack/catkin_ws/install/include
+Libs: -L/home/jack/catkin_ws/install/lib 
+Requires: message_runtime

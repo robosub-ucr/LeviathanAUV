@@ -10,13 +10,18 @@ from sensor_msgs.msg import FluidPressure, MagneticField, Imu, Image
 from uuv_gazebo_ros_plugins_msgs.msg import FloatStamped
 import time
 import math
+import numpy as np
+import tf
 
 
 class SimLink():
 
-    PWM_SCALING = 3  # how much to scale yaw_pwm and depth_pwm by for the Gazebo thrusters
+    PWM_SCALING = 8  # how much to scale yaw_pwm and depth_pwm by for the Gazebo thrusters
 
     def __init__(self):
+        # class-wide current yaw PWM values
+        self.leviathanThrusterYawPwm = 0
+
         # get ROS publishers and subscribers
         self.seadragonPressurePub = rospy.Publisher('/depth', Int16, queue_size=10)  # Seadragon depth
         self.seadragonMagnetometerPub = rospy.Publisher('/magnetometer', Float64, queue_size=10)  # Seadragon magnetometer
@@ -34,7 +39,7 @@ class SimLink():
         self.seadragonDepthPwmFeedback = rospy.Subscriber('/depth_pwm_feedback', Int16, self.seadragonDepthPwmFeedbackCallback)  # Seadragon Depth PWM Feedback (from Dynamic Reconfigure)
         self.seadragonYawPwmFeedback = rospy.Subscriber('/yaw_pwm_feedback', Int16, self.seadragonYawPwmFeedbackCallback)  # Seadragon Yaw PWM Feedback (from Dynamic Reconfigure)
 
-        self.seadragonYawPwmPub = rospy.Publisher('/yaw_pwm/', Int16, queue_size=10)  # Seadragon Yaw PWM
+        self.leviathanYawPwmSub = rospy.Subscriber('/yaw_pwm/', Int16, self.leviathanThrusterYawPwmCallback)  # Leviathan Yaw PWM
 
         self.gazeboThrusterYawFrontLeftPub = rospy.Publisher('/leviathan/thrusters/0/input', FloatStamped, queue_size=10)  # Gazebo thruster yaw front-left
         self.gazeboThrusterYawFrontRightPub = rospy.Publisher('/leviathan/thrusters/1/input', FloatStamped, queue_size=10)  # Gazebo thruster yaw front-right
@@ -45,11 +50,6 @@ class SimLink():
         self.gazeboThrusterDepthFrontRightPub = rospy.Publisher('/leviathan/thrusters/5/input', FloatStamped, queue_size=10)  # Gazebo thruster depth front-right
         self.gazeboThrusterDepthBackLeftPub = rospy.Publisher('/leviathan/thrusters/6/input', FloatStamped, queue_size=10)  # Gazebo thruster depth back-left
         self.gazeboThrusterDepthBackRightPub = rospy.Publisher('/leviathan/thrusters/7/input', FloatStamped, queue_size=10)  # Gazebo thruster depth back-right
-
-        self.seadragonThrusterYawFrontLeftSub = rospy.Subscriber('/yaw_pwm/', Int16, self.seadragonThrusterYawFrontLeftCallback)  # Seadragon thruster yaw front-left
-        self.seadragonThrusterYawFrontRightSub = rospy.Subscriber('/yaw_pwm/', Int16, self.seadragonThrusterYawFrontRightCallback)  # Seadragon thruster yaw front-right
-        self.seadragonThrusterYawBackLeftSub = rospy.Subscriber('/yaw_pwm/', Int16, self.seadragonThrusterYawBackLeftCallback)  # Seadragon thruster yaw back-left
-        self.seadragonThrusterYawBackRightSub = rospy.Subscriber('/yaw_pwm/', Int16, self.seadragonThrusterYawBackRightCallback)  # Seadragon thruster yaw back-right
 
         self.seadragonThrusterDepthFrontLeftSub = rospy.Subscriber('/depth_pwm/', Int16, self.seadragonThrusterDepthFrontLeftCallback)  # Seadragon thruster depth front-left
         self.seadragonThrusterDepthFrontRightSub = rospy.Subscriber('/depth_pwm/', Int16, self.seadragonThrusterDepthFrontRightCallback)  # Seadragon thruster depth front-right
@@ -64,10 +64,13 @@ class SimLink():
         self.seadragonPressurePub.publish(Int16((msg.fluid_pressure - 107) / 1.1))
 
     def gazeboMagnetometerCallback(self, msg):
-        magnetometer_orientation = math.atan(msg.magnetic_field.y / msg.magnetic_field.x)
+        magnetometer_orientation = math.atan(msg.magnetic_field.y / msg.magnetic_field.x) * -2
         self.seadragonMagnetometerPub.publish(magnetometer_orientation)
 
     def gazeboImuCallback(self, msg):
+        q = np.array([msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w])
+        orientation = tf.transformations.euler_from_quaternion(q)
+        self.imu_data = orientation[2] # for debug
         self.seadragonImuPub.publish(msg)
 
     def gazeboCameraFrontCallback(self, msg):
@@ -79,22 +82,20 @@ class SimLink():
     def seadragonDepthPwmFeedbackCallback(self, msg):
         self.seadragonDepthPwm.publish(msg.data * -1)
 
-    def seadragonYawPwmFeedbackCallback(self, msg):
-        self.seadragonYawPwmPub.publish(msg.data)
-
-    
-    def seadragonThrusterYawFrontLeftCallback(self, msg):
+    def leviathanThrusterYawPwmCallback(self, msg):
+        self.leviathanThrusterYawPwm = msg.data
+        print("Yaw Set To: " + str(msg.data))
         self.gazeboThrusterYawFrontLeftPub.publish(FloatStamped(data=msg.data * self.PWM_SCALING))
-    
-    def seadragonThrusterYawFrontRightCallback(self, msg):
         self.gazeboThrusterYawFrontRightPub.publish(FloatStamped(data=msg.data * self.PWM_SCALING))
+        self.gazeboThrusterYawBackLeftPub.publish(FloatStamped(data=msg.data * -1 * self.PWM_SCALING))
+        self.gazeboThrusterYawBackRightPub.publish(FloatStamped(data=msg.data * -1 * self.PWM_SCALING))
 
-    def seadragonThrusterYawBackLeftCallback(self, msg):
-        self.gazeboThrusterYawBackLeftPub.publish(FloatStamped(data=msg.data * self.PWM_SCALING * -1))
-    
-    def seadragonThrusterYawBackRightCallback(self, msg):
-        self.gazeboThrusterYawBackRightPub.publish(FloatStamped(data=msg.data * self.PWM_SCALING * -1))
-    
+    def seadragonYawPwmFeedbackCallback(self, msg):
+        self.gazeboThrusterYawFrontLeftPub.publish(FloatStamped(data=self.leviathanThrusterYawPwm + msg.data * self.PWM_SCALING))
+        self.gazeboThrusterYawFrontRightPub.publish(FloatStamped(data=self.leviathanThrusterYawPwm - msg.data * self.PWM_SCALING))
+        self.gazeboThrusterYawBackLeftPub.publish(FloatStamped(data=self.leviathanThrusterYawPwm - msg.data * self.PWM_SCALING))
+        self.gazeboThrusterYawBackRightPub.publish(FloatStamped(data=self.leviathanThrusterYawPwm + msg.data * self.PWM_SCALING))
+        print(str(self.leviathanThrusterYawPwm + msg.data * self.PWM_SCALING) + " | " + str(self.imu_data))
 
     def seadragonThrusterDepthFrontLeftCallback(self, msg):
         self.gazeboThrusterDepthFrontLeftPub.publish(FloatStamped(data=msg.data * self.PWM_SCALING))

@@ -1,0 +1,8 @@
+prefix=/home/jack/catkin_ws/install
+
+Name: seadragon_reconfigure
+Description: Description of seadragon_reconfigure
+Version: 0.0.0
+Cflags: -I/home/jack/catkin_ws/install/include
+Libs: -L/home/jack/catkin_ws/install/lib 
+Requires: 

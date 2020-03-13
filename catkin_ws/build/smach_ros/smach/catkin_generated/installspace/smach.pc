@@ -1,0 +1,8 @@
+prefix=/home/jack/catkin_ws/install
+
+Name: smach
+Description: Description of smach
+Version: 2.0.1
+Cflags: 
+Libs: -L/home/jack/catkin_ws/install/lib 
+Requires: 

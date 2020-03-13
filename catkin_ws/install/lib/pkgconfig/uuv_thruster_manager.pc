@@ -1,0 +1,8 @@
+prefix=/home/jack/RoboSub/catkin_ws/install
+
+Name: uuv_thruster_manager
+Description: Description of uuv_thruster_manager
+Version: 0.6.13
+Cflags: -I/home/jack/RoboSub/catkin_ws/install/include
+Libs: -L/home/jack/RoboSub/catkin_ws/install/lib 
+Requires: std_msgs message_runtime

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/jack/RoboSub/catkin_ws/install/setup.sh

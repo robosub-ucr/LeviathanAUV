@@ -1,0 +1,8 @@
+prefix=/home/jack/catkin_ws/devel
+
+Name: gui
+Description: Description of gui
+Version: 0.1.0
+Cflags: 
+Libs: -L/home/jack/catkin_ws/devel/lib 
+Requires: 

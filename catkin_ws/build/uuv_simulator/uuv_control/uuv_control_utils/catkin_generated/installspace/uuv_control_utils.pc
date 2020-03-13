@@ -1,0 +1,8 @@
+prefix=/home/jack/catkin_ws/install
+
+Name: uuv_control_utils
+Description: Description of uuv_control_utils
+Version: 0.6.13
+Cflags: 
+Libs: -L/home/jack/catkin_ws/install/lib 
+Requires: 

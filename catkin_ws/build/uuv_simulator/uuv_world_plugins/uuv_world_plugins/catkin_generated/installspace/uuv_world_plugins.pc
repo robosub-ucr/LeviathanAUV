@@ -1,0 +1,8 @@
+prefix=/home/jack/catkin_ws/install
+
+Name: uuv_world_plugins
+Description: Description of uuv_world_plugins
+Version: 0.6.13
+Cflags: -I/home/jack/catkin_ws/install/include
+Libs: -L/home/jack/catkin_ws/install/lib -luuv_underwater_current_plugin
+Requires: gazebo_msgs gazebo_dev
