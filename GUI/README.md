@@ -12,11 +12,13 @@
 
 
 ### Running Qt (From project directory):
-
+#### Initial Setup: 
     $ qmake -project  
 *open 'GUI.pro' in a text editor and add 'QT += gui widgets' at line 8 right under 'INCLUDEPATH +='  
 
     $ qmake SampleProject.pro
+ 
+ #### Running: 
     $ make
     $ ./GUI
   
