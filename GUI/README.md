@@ -1,4 +1,7 @@
-#GUI  
+##GUI
+
+
+
 ###Installing Qt:  
 
     $ sudo apt-get update  
