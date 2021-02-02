@@ -1,8 +1,8 @@
-##GUI
+## GUI
 
 
 
-###Installing Qt:  
+### Installing Qt:  
 
     $ sudo apt-get update  
     $ sudo apt-get install build-essential  
@@ -11,7 +11,7 @@
 
 
 
-###Running Qt (From project directory):
+### Running Qt (From project directory):
 
     $ qmake -project  
 *open 'GUI.pro' in a text editor and add 'QT += gui widgets' at line 8 right under 'INCLUDEPATH +='  
@@ -22,5 +22,5 @@
   
 
 
-###GUI current look:
+### GUI current look:
 ![GUI](https://i.imgur.com/acMqOJO.png)
