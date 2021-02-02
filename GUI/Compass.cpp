@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "compass.h"
+#include "Compass.h"
 #include "ui_mainwindow.h"
 
 #include <QPushButton>

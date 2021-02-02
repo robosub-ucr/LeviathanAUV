@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "compass.h"
+#include "Compass.h"
 #include "Depth.h"
 
 #include <QPushButton>
@@ -83,7 +83,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
 
     //rotates the orientation of the painter so that the next objects will be rotated
-    c.setNeedleAngle(-45);
+    c.setNeedleAngle(-45);//hard coded for testing purposes, needs to be removed once Angle can be determined from ROS
     painter.rotate(c.getNeedleAngle());
     painter.drawPolygon(pointer);
     painter.fillPath(path, brush); //fills the polygon
