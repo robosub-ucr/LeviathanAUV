@@ -2,6 +2,12 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <sstream> // for converting the command line parameter to integer
+#include <std_msgs/Int16.h>
+#include <iostream>
+
+void index_callback(const std_msgs::Int16 msg) {
+  cv::VideoCapture cap(msg.data);
+}
 
 int main(int argc, char** argv)
 {
@@ -12,15 +18,16 @@ int main(int argc, char** argv)
   ros::NodeHandle nh;
 
   ros::Publisher pub = nh.advertise<sensor_msgs::Image&>("camera/image", 1);
+  ros::Subscriber sub = nh.subscribe("camera/index", 1, index_callback);
   //image_transport::ImageTransport it(nh);
   //image_transport::Publisher pub = it.advertise("camera/image", 1);
 
   // Convert the passed as command line parameter index for the video device to an integer
   std::istringstream video_sourceCmd(argv[1]);
+
   int video_source;
   // Check if it is indeed a number
   if(!(video_sourceCmd >> video_source)) return 1;
-
   cv::VideoCapture cap(video_source);
   // Check if video device can be opened with the given index
   if(!cap.isOpened()) return 1;
