@@ -16,7 +16,7 @@
     $ qmake -project  
 open `GUI.pro` in a text editor and add `QT += gui widgets` at line 8 right under `INCLUDEPATH +=`  
 
-    $ qmake SampleProject.pro
+    $ qmake GUI.pro
  
  #### Running: 
     $ make
