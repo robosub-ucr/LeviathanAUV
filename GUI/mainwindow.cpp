@@ -61,7 +61,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
     //puts pen into painter
     painter.setPen(pen);
 
-    //draws a rectagle from the top left corner (x,y, width, height)
+    //draws a rectangle from the top left corner (x,y, width, height)
     c.setSquareWidth(200);
     painter.drawRect(QRect(-c.getSquareWidth()/2, -c.getSquareWidth()/2, c.getSquareWidth(), c.getSquareWidth()));
 
