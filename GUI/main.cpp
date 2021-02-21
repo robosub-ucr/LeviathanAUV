@@ -4,44 +4,36 @@
 #include <stdio.h>
 #include <time.h>
 #include <chrono>
-#include <thread>
-
-void updatesGUI(MainWindow w)
-{
-    w.update();
-}
+#include <unistd.h>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
 
+    w.redraw();
 
-    w.show();
 
-    auto start = std::chrono::system_clock::now();
-
-    thread first(updatesGUI(), w);
-    first.join();
-    //WIP, probably going to use timer function as this is not effective
-
-    //Needs to sleep main thread and recall w.update() every few milliseconds
 
 
     /*
-    while(true)
+    //WIP, probably going to use timer function as this is not effective
+    auto start = std::chrono::system_clock::now();
+
+    //Needs to sleep main thread and recall w.update() every few milliseconds
+
+    while(1)
     {
-
-        /*
-        auto current = std::chrono::system_clock::now();
-        std::chrono::duration<int> elapsed_seconds = current-start;
-        if(elapsed_seconds.count() % 2 == 0){
-            w.update();
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end - start;
+        if (elapsed_seconds > std::chrono::seconds{5}){
+            start = std::chrono::system_clock::now();
+            w.redraw();
         }
-         */
-
     }
     */
+
 
 
     return a.exec();

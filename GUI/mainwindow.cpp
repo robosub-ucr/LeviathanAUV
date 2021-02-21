@@ -9,6 +9,9 @@
 #include <QTextBrowser>
 #include <QTimer>
 #include <QDateTime>
+#include <ctime>
+#include <stdio.h>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,7 +39,11 @@ void MainWindow::paintEvent(QPaintEvent *event){
     //to make it much more easily customizable
     //work in progress
 
+    //Dummy values for compass angle
+    int array [4] = {45, 90, -45, 90};
 
+    //Random values called
+    srand(time(NULL));
 
     //creates a painter
     QPainter painter(this);
@@ -83,7 +90,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
 
     //rotates the orientation of the painter so that the next objects will be rotated
-    c.setNeedleAngle(-45);//hard coded for testing purposes, needs to be removed once Angle can be determined from ROS
+    c.setNeedleAngle(array[rand() % 4 + 4]);//hard coded for testing purposes, needs to be removed once Angle can be determined from ROS
     painter.rotate(c.getNeedleAngle());
     painter.drawPolygon(pointer);
     painter.fillPath(path, brush); //fills the polygon
@@ -172,7 +179,24 @@ void MainWindow::showTime(){
 
 }
 
+void MainWindow::redraw() {
+    //Shows the window
+    this->show();
+
+    //New timer class that keeps track of time
+    QTimer *timer =  new QTimer(this);
+
+
+    //Updates the widget every 2 seconds
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    //Times out the timer so we can update it again
+    timer->start(2000);
+
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+

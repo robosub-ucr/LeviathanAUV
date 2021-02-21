@@ -19,6 +19,8 @@ public:
     ~MainWindow();
 
     virtual void paintEvent(QPaintEvent *event);
+
+    void redraw();
 private slots:
     void showTime();
 
