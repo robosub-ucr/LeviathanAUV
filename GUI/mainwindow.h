@@ -12,12 +12,15 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+
 public:
     MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();
 
     virtual void paintEvent(QPaintEvent *event);
+
+    void redraw();
 private slots:
     void showTime();
 
