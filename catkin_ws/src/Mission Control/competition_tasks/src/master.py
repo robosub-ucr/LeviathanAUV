@@ -140,7 +140,7 @@ class SearchState(smach.State):
 		self.yaw_subscriber 	= rospy.Subscriber('/yaw_control/state', Float64, self.yaw_callback)
 		self.task_subscriber 	= rospy.Subscriber('/task_detected', Int16, self.task_callback)
 		
-		self.task_publisher 		= rospy.Publisher('/task_detected', Int16, queue_size=10)
+		self.task_publisher 		= rospy.Publisher('/task_to_execute', Int16, queue_size=10)
 		self.yawOrientation_publisher 	= rospy.Publisher('/yaw_control/setpoint', Float64, queue_size=10)
 		self.visionEnable_publisher	= rospy.Publisher('/vision_enable', Bool, queue_size=10)
 		self.light_publisher 		= rospy.Publisher('light_state', Int16, queue_size=10)
@@ -159,6 +159,10 @@ class SearchState(smach.State):
 		self.turnRange	  	= .35  # 20 degrees
 		self.t 			= 0
 		self.rvs 		= 1
+
+		self.curr_task = Int16()
+		self.completed_tasks = [0, 0, 0, 0]
+		#ok to leave first index/gate_task as zero; we're starting there after all
 
 	def depth_callback(self,msg):
 		self.resetDepth = msg.data
@@ -221,15 +225,21 @@ class SearchState(smach.State):
 			self.visionEnable_publisher.publish(self.visionEnable)
 
 		# Check for object detected to ready to execute state
-		if self.taskDetected > 0:
+		if self.taskDetected > 0 and (self.completed_tasks[self.taskDetected] == 0):
 			# Reset Local Variables
-			self.resetDepth = 0
+			self.completed_tasks[self.taskDetected] = 1
+			self.curr_task.data = self.taskDetected
+			self.task_publisher.publish(self.curr_task)
+			
+			#self.resetDepth = 0
 			self.centerYaw  = 0
 			self.currYaw    = 0
 			self.taskDetected = 0
 			self.visionEnable.data = False	
 			self.t = 0
 			self.timer = 0
+
+
 			return 'taskfound'
 		else:
 			return'notaskfound'
@@ -240,7 +250,7 @@ class ExecuteState(smach.State):
 		smach.State.__init__(self, outcomes=['taskcomplete','notaskcomplete','reset'])
 
 		# Subscribers
-		self.task_subscriber     = rospy.Subscriber('/task_detected', Int16, self.task_callback)
+		self.task_subscriber     = rospy.Subscriber('/task_to_execute', Int16, self.task_callback)
 		self.complete_subscriber = rospy.Subscriber('/task_complete', Bool, self.complete_callback)
 		self.depth_subscriber    = rospy.Subscriber('/depth', Int16, self.depth_callback)
 	
