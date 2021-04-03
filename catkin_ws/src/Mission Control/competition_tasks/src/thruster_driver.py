@@ -18,7 +18,7 @@ class ThrusterDriver():
   
   def __init__(self): # like a constructor in python
   
-  	# all publishers
+    # all publishers
     # EXAMPLE: self. = rospy.Publisher('/depth', Int16, queue_size=10)  # Seadragon depth
     self.depth_all_pub = rospy.Publisher('/depth_thrust', Int16, queue_size=10) # the topic 'depth_thrust' is published, with type "Int16", for all 4 motors; this publisher is named "depth_all_pub"
     self.thrust_FR_pub = rospy.Publisher('/FR_thrust', Int16, queue_size=10)
@@ -34,8 +34,8 @@ class ThrusterDriver():
     self.strafeMotorSub = rospy.Subscriber('/strafe_pwm', Int16, self.strafe_callback) #WIP
     
  
-		# Dimitri's code below
-  	self.depth_all_pwm = self.PWMBASELINE
+  # Dimitri's code below
+    self.depth_all_pwm = self.PWMBASELINE
 
     self.tempo_thrust_FR = 0
     self.tempo_thrust_FL = 0
@@ -47,7 +47,7 @@ class ThrusterDriver():
   def depth_callback(self, msg): #tag-depth  
     if msg.data == 0: # stop motors
       self.depth_all_pwm = self.PWMBASELINE  
-  	elif msg.data < 0: # reverse-thrust motors
+    elif msg.data < 0: # reverse-thrust motors
       self.depth_all_pwm = self.PWMBASELINE - 25 + msg.data
     else: # forward-thrust motors
          self.depth_all_pwm = self.PWMBASELINE + 25 + msg.data
@@ -65,11 +65,11 @@ class ThrusterDriver():
    # thrust_FR front right, thrust_RL rear left etc.
   def forward_callback(self, msg): #tag-yaw    
     if msg.data == 0:
-    	self.tempo_thrust_FR = self.tempo_thrust_FL = self.tempo_thrust_BR = self.tempo_thrust_BL = 0
+      self.tempo_thrust_FR = self.tempo_thrust_FL = self.tempo_thrust_BR = self.tempo_thrust_BL = 0
     else:
-    	if msg.data < 0: # Go reverse
-      	tempo = - 29 + msg.data
-    	else: # Go forward
+      if msg.data < 0: # Go reverse
+        tempo = - 29 + msg.data
+      else: # Go forward
         tempo = 29 + msg.data
       self.tempo_thrust_FR += tempo
       self.tempo_thrust_FL += tempo
@@ -80,27 +80,27 @@ class ThrusterDriver():
    # I assume that positive msg.data means turn left. If not just switch motor variables
   def yaw_feedback_callback(self, msg): #tag-yaw
     if self.tempo_thrust_FR == 0: #currently all thrusters are changed together so any one can be used to check
-    	if abs(msg.data > 0.25)
-      	if (msg.data > 0.25):#turn left
-        	tempo = msg.data + 29
+      if abs(msg.data > 0.25)
+        if (msg.data > 0.25):#turn left
+          tempo = msg.data + 29
         else: #turn right
-        	tempo = msg.data - 29
+          tempo = msg.data - 29
         self.tempo_thrust_FL -= tempo
         self.tempo_thrust_BL -= tempo
         self.tempo_thrust_FR += tempo
         self.tempo_thrust_BR += tempo
     else:   #Motors are on
-    	self.tempo_thrust_FL -= msg.data
+      self.tempo_thrust_FL -= msg.data
       self.tempo_thrust_BL -= msg.data
       self.tempo_thrust_FR += msg.data
       self.tempo_thrust_BR += msg.data     
 
    # strafe left/right
    #assume that positive msg.data means strafe right
-	def strafe_callback(self, msg):
-  	if msg.data != 0:
-    	if msg.data < 0: #strafe left
-      	tempo = -25 + msg.data # msg.data is negative in this elif case, so (-25 + msg.data) is overall negative;
+  def strafe_callback(self, msg):
+    if msg.data != 0:
+      if msg.data < 0: #strafe left
+        tempo = -25 + msg.data # msg.data is negative in this elif case, so (-25 + msg.data) is overall negative;
       else: # strafe right
         tempo = 25 + msg.data
       self.tempo_thrust_FL += tempo
@@ -108,22 +108,22 @@ class ThrusterDriver():
       self.tempo_thrust_FR -= tempo
       self.tempo_thrust_BL -= tempo
       
-	def execute(self):
-  	if self.depth_all_pwm > 1800:
-    	self.depth_all_pwm = 1800
+  def execute(self):
+    if self.depth_all_pwm > 1800:
+      self.depth_all_pwm = 1800
     elif self.depth_all_pwm < 1200:
-    	self.depth_all_pwm = 1200
+      self.depth_all_pwm = 1200
       
     tempo_thrust_all = [self.tempo_thrust_FR, self.tempo_thrust_FL, self.tempo_thrust_BR, self.tempo_thrust_BL]
     final_thrust_all = []
     for item in tempo_thrust_all:
-    	if abs(item) > 300:
-      	if item > 300:
-        	tempo = 300
+      if abs(item) > 300:
+        if item > 300:
+          tempo = 300
         else:
-        	tempo = -300
+          tempo = -300
       else:
-      	tempo = item
+        tempo = item
       final_thrust_all.append(tempo + self.PWMBASELINE)
     
     #publish final values
@@ -138,7 +138,7 @@ class ThrusterDriver():
     self.thrust_FR_pub.publish(pub_msg)
     pub_msg.data = final_thrist_all[1]
     self.thrust_FL_pub.publish(pub_msg)
-		pub_msg.data = final_thrist_all[2]
+    pub_msg.data = final_thrist_all[2]
     self.thrust_BR_pub.publish(pub_msg)
     pub_msg.data = final_thrist_all[3]
     self.thrust_BL_pub.publish(pub_msg)
