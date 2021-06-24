@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-nclude "mainwindow.h"
+#include "mainwindow.h"
 
 #include "ui_mainwindow.h"
 #include "compass.h"
