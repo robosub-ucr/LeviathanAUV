@@ -51,7 +51,7 @@ You should be able to connect to the Jetson and use it via the built in windows 
 7. (Optional) In Window > Colours, you may want to set the Default Foreground to (0,0,0) and Default Background (255,255,255) to make the terminal more visible when using your computer outdoors.
 8. (Optional) In Session, for Saved Sessions type a name (tip: use the Host Name) and click on **Save**.
 
-![Putty Screenshot](docs/media/connection-img1.png)
+![Putty Screenshot](LeviathanAUV/docs/media/connection-img1.png)
 
 ## How to SSH into the Jetson
 ### PuTTY (Windows)
