@@ -1,4 +1,6 @@
 # ROS Melodic Installation
+0. Link to [Ubuntu 18.04](http://old-releases.ubuntu.com/releases/18.04.5/ubuntu-18.04-desktop-amd64.iso) ISO file.
+
 1. Setup sources.list
 
     `sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'`

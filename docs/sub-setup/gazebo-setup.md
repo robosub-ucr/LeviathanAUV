@@ -27,7 +27,7 @@
      ```bash
     export ROS_HOSTNAME=>>>YOUR COMPUTER NAME<<<
     #export ROS_MASTER_URI=https://apollo:11311
-    source /opt/ros/melodic/setup.bashupload_lev
+    source /opt/ros/melodic/setup.bash
     source /usr/share/gazebo-9/setup.sh
     source ~/LeviathanAUV/catkin_ws/devel/setup.bash
 
@@ -35,7 +35,7 @@
     export GAZEBO_PREFIX=~/LeviathanAUV/catkin_ws/install
     export GAZEBO_RESOURCE_PATH=${GAZEBO_PREFIX}/share/gazebo-9.0:${GAZEBO_RESOURCE_PATH}
     export GAZEBO_MODEL_PATH=${GAZEBO_PREFIX}/share/gazebo-9.0/models:${GAZEBO_MODEL_PATH}
-    export GAZEBO_PLUGIN_PATH=${GAZEBO_PREFIX}/lib:${GAZEBO_PREFIX}/lib/x86_64-linux-gnu:${ GAZEBO_PLUGIN_PATH}
+    export GAZEBO_PLUGIN_PATH=${GAZEBO_PREFIX}/lib:${GAZEBO_PREFIX}/lib/x86_64-linux-gnu:${GAZEBO_PLUGIN_PATH}
 
     # USEFUL ALIASES
     alias sd='ssh -X ucr@seadragon'
@@ -44,6 +44,7 @@
     alias control_lev='roslaunch motor_controllers attitude_control.launch'
     alias sim_lev='python3 ~/LeviathanAUV/catkin_ws/src/Simulations/gazebo_link.py'
      ``` 
+     Note: Delete `>>>YOUR COMPUTER NAME<<<` and replace with your computer name exactly as listed in terminal. 
 7. In the Simulations Google Drive folder there is a folder `RoboSub Gazebo World` and files `robosub_world.launch` and `robosub_world.world`
 
     1. Download and place the `robosub_world.world` into `~/LeviathanAUV/catkin_ws/src/uuv_simulator/uuv_gazebo_worlds/worlds`
@@ -66,9 +67,11 @@
 
     `rosdep update`
 
-    `rosdep install --from-paths src --ignore-src --rosdistro=melodic -y --skip-keys "gazebo gazebo_msgs gazebo_plugins gazebo_ros gazebo_ros_control gazebo_ros_pkgs"`
+    `sudo apt-get install ros-melodic-gazebo ros-melodic-gazebo-msgs ros-melodic-gazebo-plugins ros-melodic-gazebo-ros ros-melodic-gazebo-ros-control ros-melodic-gazebo-ros-pkgs`
 
     `sudo apt-get install ros-melodic-gazebo-ros-pkgs ros-melodic-gazebo-ros-control ros-melodic-pid ros-melodic-rqt-graph python3-pip rosbash ros-melodic-dynamic-reconfigure ros-melodic-rqt-reconfigure ros-melodic-xacro`
+
+    `sudo apt-get install ros-melodic-laser-geometry`
 
     `sudo pip3 install rospkg`
 
