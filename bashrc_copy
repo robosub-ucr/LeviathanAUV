@@ -1,0 +1,11 @@
+
+ # USEFUL ALIASES that should be in ~/.bashrc
+alias sd='ssh -X ucr@seadragon' 
+alias gz_lev='roslaunch uuv_gazebo_worlds robosub_world.launch' 
+alias spawn_lev='roslaunch uuv_descriptions_leviathan upload_leviathan.launch mode:=default x:=0 y:=0 z:=-50 namespace:=leviathan' 
+alias control_lev='roslaunch motor_controllers attitude_control.launch' 
+alias sim_lev='python ~/LeviathanAUV/catkin_ws/src/Simulations/gazebo_link.py' 
+alias joystick_control='roslaunch uuv_control_cascaded_pid joy_velocity.launch uuv_name:=leviathan model_name:=leviathan joy_id:=0'
+alias joy_lev='roslaunch uuv_control_cascaded_pid joy_velocity.launch uuv_name:=leviathan model_name:=leviathan joy_id:=0'
+alias kb_lev='roslaunch uuv_control_cascaded_pid key_board_velocity.launch uuv_name:=leviathan model_name:=leviathan joy_id:=0'
+alias killzebo='killall -9 gzserver gzclient'

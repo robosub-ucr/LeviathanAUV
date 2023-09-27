@@ -1,0 +1,13 @@
+\subsubsection usage Usage
+\verbatim
+<node name="seadragon_reconfigure" pkg="seadragon_reconfigure" type="seadragon_reconfigure">
+  <param name="depthenable_param" type="bool" value="False" />
+  <param name="depthpoint_param" type="double" value="14.0" />
+  <param name="yawenable_param" type="bool" value="False" />
+  <param name="yawpoint_param" type="double" value="0.0" />
+  <param name="yawpwm_param" type="double" value="0.0" />
+  <param name="depthpwm_param" type="double" value="0.0" />
+  <param name="pan_param" type="double" value="0.0" />
+</node>
+\endverbatim
+

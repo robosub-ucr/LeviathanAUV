@@ -1,0 +1,11 @@
+Metadata-Version: 1.1
+Name: uuv_thruster_manager
+Version: 0.6.13
+Summary: The thruster manager package
+Home-page: UNKNOWN
+Author: Musa Morena Marcusso Manhaes <musa.marcusso@de.bosch.com>, Sebastian Scherer <sebastian.scherer2@de.bosch.com>, Luiz Ricardo Douat <luizricardo.douat@de.bosch.com>
+Author-email: UNKNOWN
+License: Apache-2.0
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires: rospy

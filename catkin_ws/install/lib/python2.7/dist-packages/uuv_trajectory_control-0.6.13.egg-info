@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: uuv_trajectory_control
+Version: 0.6.13
+Summary: The uuv_trajectory_control package
+Home-page: UNKNOWN
+Author: Luiz Ricardo Douat <luizricardo.douat@de.bosch.com>, Musa Morena Marcusso Manhaes <musa.marcusso@de.bosch.com>, Sebastian Scherer <sebastian.scherer2@de.bosch.com>
+Author-email: UNKNOWN
+License: Apache-2.0
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires: std_msgs
+Requires: rospy
