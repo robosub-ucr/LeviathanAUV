@@ -1,8 +1,0 @@
-prefix=/home/richard/catkin_ws/devel
-
-Name: seadragon_reconfigure
-Description: Description of seadragon_reconfigure
-Version: 0.0.0
-Cflags: -I/home/richard/catkin_ws/devel/include
-Libs: -L${prefix}/lib 
-Requires: 

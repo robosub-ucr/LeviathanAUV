@@ -1,8 +1,0 @@
-prefix=/home/richard/catkin_ws/install
-
-Name: motor_controllers
-Description: Description of motor_controllers
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

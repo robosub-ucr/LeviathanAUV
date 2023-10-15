@@ -1,8 +1,0 @@
-prefix=/home/richard/catkin_ws/install
-
-Name: competition_tasks
-Description: Description of competition_tasks
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
