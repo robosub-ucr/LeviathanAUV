@@ -9,7 +9,7 @@
 
 **Relevancies:** Linux, Python, ROS, Gazebo, Automation, Onboarding
 
-> ***This onboarding task/automation tutorial was adapted from UCR EE144 Lab 1***
+> ***This onboarding task/automation tutorial was adapted from UCR EE144 Lab 1: [Link](https://ucr-ee144.readthedocs.io/en/latest/lab1.html)***
 
 ## 1. Requirements
 - [ ] Ubuntu 18.04 - 18.04.6
