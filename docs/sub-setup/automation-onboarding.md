@@ -17,7 +17,10 @@
 - [ ] Gazebo (refer to documentation for help)
 
 ## 2. Creating another catkin workspace
-In order to complete this onboarding task, we need to create a separate catkin workspace that does not conflict with our main robosub workspace. Please follow the steps bellow carefully in order to complete this step.
+
+**vm password:** robosub2024
+
+In order to complete this onboarding task, we need to create a separate catkin workspace that does not conflict with our main robosub workspace. Please follow the steps below carefully in order to complete this step.
 1. Open a new terminal window and make sure you're in the home directory.
 2. Create a new catkin directory
 ```bash
@@ -28,9 +31,9 @@ catkin_make
 3. Add the new workspace to your `.bashrc`.
   * `cd` into your home directory
   * `gedit .bashrc` should open up a text editor with your bash config file
-  * Scroll to the bottom of the file and add the line `source ~/robosub_automation/onboarding_catkin_ws/devel.setup.bash`
+  * Scroll to the bottom of the file and add the line `source ~/robosub_automation/onboarding_catkin_ws/devel/setup.bash`
   * Select save and close gedit
-  * Run `source .bashrc` to reload terminal with the new upadted config 
+  * Run `source .bashrc` to reload terminal with the new updated config 
   * **IMPORTANT**: After demoing this task to one of the Software Leads, go back into your `.bashrc` and remove the source line you added or else the robosub workspace will not activate.
 
 ## 3. ROS Basics
@@ -59,7 +62,7 @@ catkin_make
 1. Upgrade packages and install Turtlebot dependencies
 ```bash
 sudo apt-get update
-sudo apt-get install ros-melodic-turtlebot ros-melodic-turtlebot-apps ros-melodic-turtlebot-interactions ros-melodic-turtlebot-simulator
+sudo apt-get install sudo apt-get install ros-melodic-turtlebot3-*
 sudo apt-get install ros-melodic-kobuki-ftdi ros-melodic-ar-track-alvar-msgs
 ```
 2. Navigate to `onboardingf23` package and create a new folder and a new launch file
